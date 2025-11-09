@@ -1,0 +1,32 @@
+# File: /docker-compose.yml
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - FHIR_BASE_URL=http://hapi.fhir.org/baseR4
+      - FHIR_CLIENT_ID=test_client_id
+      - FHIR_CLIENT_SECRET=test_secret_123
+      - WEBHOOK_SECRET=test_webhook_secret_minimum_32_characters_required
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    environment:
+      - REACT_APP_API_URL=http://localhost:3000/api
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -8,7 +8,7 @@ class PatientService {
         fhirClient.getResource('Patient', patientId),
         fhirClient.searchResource('MedicationRequest', { patient: patientId, status: 'active' }),
         fhirClient.searchResource('AllergyIntolerance', { patient: patientId }),
-        fhirClient.searchResource('Condition', { patient: patientId, clinical-status: 'active' })
+        fhirClient.searchResource('Condition', { patient: patientId, 'clinical-status': 'active' })
       ]);
 
       return {
