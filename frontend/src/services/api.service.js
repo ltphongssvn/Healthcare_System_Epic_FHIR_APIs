@@ -12,8 +12,12 @@ const apiClient = axios.create({
 });
 
 export const patientAPI = {
-  getPatientSummary: (patientId) => 
-    apiClient.get(`/patients/${patientId}/summary`),
+  getPatientSummary: (patientId) => {
+    const endpoint = patientId.startsWith('patient-') 
+      ? `/mock/patients/${patientId}/summary`
+      : `/patients/${patientId}/summary`;
+    return apiClient.get(endpoint);
+  },
   
   updatePatientField: (patientId, field, value) =>
     apiClient.patch(`/patients/${patientId}`, { field, value })
