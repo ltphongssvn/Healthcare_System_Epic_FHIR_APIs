@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
+const patientRoutes = require('./routes/patient.routes');
 const webhookRoutes = require('./routes/webhook.routes');
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Routes
+app.use('/api/patients', patientRoutes);
 app.use('/api/webhooks', webhookRoutes);
 
 // Health check
